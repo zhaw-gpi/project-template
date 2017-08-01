@@ -18,3 +18,8 @@
 *.tar.gz
 *.rar
 
+/target/
+/.classpath
+/.project
+/zhaw-gpi.mv.db
+/zhaw-gpi.trace.db

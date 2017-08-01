@@ -1,4 +1,4 @@
-package ch.zhaw.sml.ifi.gpi.examples;
+package ch.zhaw.sml.iwi.gpi.examples;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

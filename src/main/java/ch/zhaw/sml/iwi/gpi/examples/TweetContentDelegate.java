@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package ch.zhaw.sml.ifi.gpi.examples;
+package ch.zhaw.sml.iwi.gpi.examples;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,15 +22,15 @@ import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.springframework.stereotype.Service;
 
-@Service("emailAdapter")
-public class RejectionNotificationDelegate implements JavaDelegate {
+@Service("tweetAdapter")
+public class TweetContentDelegate implements JavaDelegate {
 
-    private static final Logger logger = Logger.getLogger(RejectionNotificationDelegate.class.getName());
+    private static final Logger logger = Logger.getLogger(TweetContentDelegate.class.getName());
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        String comments = (String) execution.getVariable("comments");
-        logger.log(Level.INFO, "Tweet rejected! Resaon: {0}", comments);
+        String content = (String) execution.getVariable("content");
+        logger.log(Level.INFO, "Twittering: {0}", content);
     }
 
 }

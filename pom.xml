@@ -1,48 +1,82 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <version>1.0</version>
-    <groupId>ch.zhaw.sml.ifi.gpi.examples</groupId>
+    <groupId>ch.zhaw.sml.iwi.gpi.examples</groupId>
     <artifactId>project-template</artifactId>
+    <packaging>pom</packaging>
+    
+    <parent>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-parent</artifactId>
+	    <version>1.5.6.RELEASE</version>
+	  </parent>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <camunda.version>7.7.0</camunda.version>
+        <camunda-bpm-spring-boot-starter.version>2.1.2</camunda-bpm-spring-boot-starter.version>
+    </properties>
+    
+    <dependencyManagement>
+	  <dependencies>
+	    <dependency>
+	      <!-- Import dependency management from camunda -->
+	      <groupId>org.camunda.bpm</groupId>
+	      <artifactId>camunda-bom</artifactId>
+	      <version>${camunda.version}</version>
+	      <scope>import</scope>
+	      <type>pom</type>
+	    </dependency>
+	  </dependencies>
+	</dependencyManagement>
+    
     <dependencies>
         <dependency>
-            <groupId>org.camunda.bpm.extension.springboot</groupId>
-            <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
-            <version>2.1.0</version>
+	      <groupId>org.camunda.bpm.extension.springboot</groupId>
+	      <artifactId>camunda-bpm-spring-boot-starter</artifactId>
+	      <version>${camunda-bpm-spring-boot-starter.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	      <groupId>org.camunda.bpm.extension.springboot</groupId>
+	      <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
+	      <version>${camunda-bpm-spring-boot-starter.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+	      <groupId>org.camunda.bpm.extension.springboot</groupId>
+	      <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
+	      <version>${camunda-bpm-spring-boot-starter.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+           <groupId>org.springframework</groupId>
+           <artifactId>spring-context</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.camunda.bpm.extension.springboot</groupId>
-            <artifactId>camunda-bpm-spring-boot-starter-test</artifactId>
-            <version>2.1.0</version>
-            <scope>test</scope>
-        </dependency>        
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>4.3.10.RELEASE</version>
+    
+	    <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
         </dependency>
+        
+        <dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-starter-test</artifactId>
+	      <scope>test</scope>
+	    </dependency>
+	    
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
-            <version>4.3.10.RELEASE</version>
         </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.196</version>
-        </dependency>       
     </dependencies>
+    
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>1.5.4.RELEASE</version>
             </plugin>
         </plugins>
     </build>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-    </properties>
 </project>
