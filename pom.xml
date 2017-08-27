@@ -3,13 +3,13 @@
     <version>1.0</version>
     <groupId>ch.zhaw.sml.iwi.gpi.examples</groupId>
     <artifactId>project-template</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     
     <parent>
-	    <groupId>org.springframework.boot</groupId>
-	    <artifactId>spring-boot-starter-parent</artifactId>
-	    <version>1.5.6.RELEASE</version>
-	  </parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.5.6.RELEASE</version>
+    </parent>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,57 +18,58 @@
     </properties>
     
     <dependencyManagement>
-	  <dependencies>
-	    <dependency>
-	      <!-- Import dependency management from camunda -->
-	      <groupId>org.camunda.bpm</groupId>
-	      <artifactId>camunda-bom</artifactId>
-	      <version>${camunda.version}</version>
-	      <scope>import</scope>
-	      <type>pom</type>
-	    </dependency>
-	  </dependencies>
-	</dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from camunda -->
+                <groupId>org.camunda.bpm</groupId>
+                <artifactId>camunda-bom</artifactId>
+                <version>${camunda.version}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     
     <dependencies>
         <dependency>
-	      <groupId>org.camunda.bpm.extension.springboot</groupId>
-	      <artifactId>camunda-bpm-spring-boot-starter</artifactId>
-	      <version>${camunda-bpm-spring-boot-starter.version}</version>
-	    </dependency>
+            <groupId>org.camunda.bpm.extension.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter</artifactId>
+            <version>${camunda-bpm-spring-boot-starter.version}</version>
+        </dependency>
 	    
-	    <dependency>
-	      <groupId>org.camunda.bpm.extension.springboot</groupId>
-	      <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
-	      <version>${camunda-bpm-spring-boot-starter.version}</version>
-	    </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm.extension.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
+            <version>${camunda-bpm-spring-boot-starter.version}</version>
+        </dependency>
 	    
-	    <dependency>
-	      <groupId>org.camunda.bpm.extension.springboot</groupId>
-	      <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
-	      <version>${camunda-bpm-spring-boot-starter.version}</version>
-	    </dependency>
+        <dependency>
+            <groupId>org.camunda.bpm.extension.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
+            <version>${camunda-bpm-spring-boot-starter.version}</version>
+        </dependency>
 	    
-	    <dependency>
-           <groupId>org.springframework</groupId>
-           <artifactId>spring-context</artifactId>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
         </dependency>
     
-	    <dependency>
+        <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
         </dependency>
         
         <dependency>
-	      <groupId>org.springframework.boot</groupId>
-	      <artifactId>spring-boot-starter-test</artifactId>
-	      <scope>test</scope>
-	    </dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 	    
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
         </dependency>
+        
     </dependencies>
     
     <build>
