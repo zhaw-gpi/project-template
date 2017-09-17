@@ -12,10 +12,11 @@ https://forum.camunda.org/c/community-extensions/spring-boot-starter
 https://github.com/camunda/camunda-bpm-spring-boot-starter/issues
 
 # Status
-1. Tomcat wird gestartet, Camunda in der Version 7.7 mit den Prozessen und Eigenschaften (application.properties und application.yaml) deployt
+1. Wenn man zunächst das Projekt mit Build initialisiert und dann jeweils mit Run startet, wird Tomcat wird gestartet, Camunda in der Version 7.7 mit den Prozessen und Eigenschaften (application.properties und application.yaml) deployt
 2. Man kann sich anschliessend auf http://localhost:8080 mit demo:demo anmelden und einen Prozess starten.
 3. Erstellte Filter und Tasks, Prozessinstanzen, usw. werden dank file-basierter H2-Datenbank erhalten, auch wenn Tomcat gestoppt wird.
 4. Man muss noch von Hand mindestens einen Task Filter erstellen, damit überhaupt erstellte Tasks angezeigt werden (Create a filter, wobei Assigneee = ${currentUser()} ist).
+5. Um auf die Datenbank zuzugreifen, http://localhost:8080/console eingeben, bei Benutzername und Passwort dann je sa, bei der URL jdbc:h2:./zhaw-gpi;MVCC=TRUE;TRACE_LEVEL_FILE=0;DB_CLOSE_ON_EXIT=FALSE
 
 # Learnings
 1. Die Idee von Peter mit Spring Boot ist fantastisch. 
