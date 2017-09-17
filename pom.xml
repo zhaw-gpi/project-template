@@ -1,6 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <version>1.0</version>
+    <version>1.1</version>
     <groupId>ch.zhaw.sml.iwi.gpi.examples</groupId>
     <artifactId>project-template</artifactId>
     <packaging>jar</packaging>
@@ -14,7 +14,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <camunda.version>7.7.0</camunda.version>
-        <camunda-bpm-spring-boot-starter.version>2.1.2</camunda-bpm-spring-boot-starter.version>
+        <camunda-bpm-spring-boot-starter.version>2.2.0</camunda-bpm-spring-boot-starter.version>
     </properties>
     
     <dependencyManagement>
