@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" targetNamespace="http://www.signavio.com/bpmn20" exporter="Camunda Modeler" exporterVersion="1.8.2" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+  <process id="ExampleProcess" name="Example Process" isExecutable="true">
+    <serviceTask id="service_task_example" name="Beispiel-Java-Klasse aufrufen" camunda:delegateExpression="#{exampleAdapter}">
+      <extensionElements>
+        <camunda:properties>
+          <camunda:property name="KPI-Ratio" value="Tweet Rejected" />
+        </camunda:properties>
+      </extensionElements>
+      <incoming>SequenceFlow_0frtojm</incoming>
+      <outgoing>SequenceFlow_0kv2jfb</outgoing>
+    </serviceTask>
+    <endEvent id="end_event" name="Prozess beendet">
+      <incoming>SequenceFlow_0kv2jfb</incoming>
+    </endEvent>
+    <startEvent id="start_event" name="Prozess gestartet" camunda:formKey="embedded:app:forms/exampleStartForm.html" camunda:initiator="initiator">
+      <outgoing>SequenceFlow_0kkhsl4</outgoing>
+    </startEvent>
+    <userTask id="user_task_example" name="Beispiel-formular anzeigen" camunda:formKey="embedded:app:forms/exampleUserForm.html" camunda:assignee="demo">
+      <incoming>SequenceFlow_0kkhsl4</incoming>
+      <outgoing>SequenceFlow_0frtojm</outgoing>
+    </userTask>
+    <sequenceFlow id="SequenceFlow_0frtojm" sourceRef="user_task_example" targetRef="service_task_example" />
+    <sequenceFlow id="SequenceFlow_0kv2jfb" sourceRef="service_task_example" targetRef="end_event" />
+    <sequenceFlow id="SequenceFlow_0kkhsl4" sourceRef="start_event" targetRef="user_task_example" />
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_TwitterDemoProcess">
+    <bpmndi:BPMNPlane id="BPMNPlane_TwitterDemoProcess" bpmnElement="ExampleProcess">
+      <bpmndi:BPMNShape id="BPMNShape_new_tweet_3" bpmnElement="start_event">
+        <omgdc:Bounds x="48" y="119" width="30" height="30" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="20" y="151" width="87" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Review_Tweet_3" bpmnElement="user_task_example">
+        <omgdc:Bounds x="146" y="94" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_Send_rejection_notification_3" bpmnElement="service_task_example">
+        <omgdc:Bounds x="319" y="94" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BPMNShape_EndNoneEvent_3" bpmnElement="end_event">
+        <omgdc:Bounds x="487" y="120" width="28" height="28" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="460" y="150" width="83" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0frtojm_di" bpmnElement="SequenceFlow_0frtojm">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="246" y="134" />
+        <omgdi:waypoint xsi:type="omgdc:Point" x="319" y="134" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="282.5" y="113" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0kv2jfb_di" bpmnElement="SequenceFlow_0kv2jfb">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="419" y="134" />
+        <omgdi:waypoint xsi:type="omgdc:Point" x="488" y="134" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="453.5" y="113" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0kkhsl4_di" bpmnElement="SequenceFlow_0kkhsl4">
+        <omgdi:waypoint xsi:type="omgdc:Point" x="77" y="134" />
+        <omgdi:waypoint xsi:type="omgdc:Point" x="146" y="134" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="111.5" y="113" width="0" height="12" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
