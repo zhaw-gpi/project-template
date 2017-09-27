@@ -58,8 +58,9 @@
         </dependency>
         
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
+            <groupId>org.camunda.bpm.extension.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-test</artifactId>
+            <version>${camunda-bpm-spring-boot-starter.version}</version>
             <scope>test</scope>
         </dependency>
 	    
@@ -67,7 +68,6 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
         </dependency>
-        
     </dependencies>
     
     <build>

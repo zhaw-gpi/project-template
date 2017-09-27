@@ -1,26 +1,31 @@
 package ch.zhaw.sml.iwi.gpi.examples;
 
+import org.camunda.bpm.engine.RuntimeService;
+import org.camunda.bpm.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration;
+import org.camunda.bpm.engine.runtime.ProcessInstance;
+import org.camunda.bpm.engine.test.Deployment;
+import org.camunda.bpm.engine.test.ProcessEngineRule;
+import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareAssertions.assertThat;
+import org.junit.Rule;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 /**
- * Klasse, um die Prozessapplikation automatisiert zu testen
- *
- * @author scep
+ * Sanity test to verify the example process is syntactical correct and can be
+ * deployed to the engine. All "real" tests should be implemented in the
+ * according modules (jbehave, assertions, needle, ...).
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest
 public class ExampleProcessApplicationTest {
 
-    /**
-     * Beispieltest, der allerdings aktuell nichts testet
-     * 
-     * @throws Exception
-     */
+    @Rule
+    public final ProcessEngineRule rule = new ProcessEngineRule(new StandaloneInMemProcessEngineConfiguration().buildProcessEngine());
+
     @Test
-    public void exampleTest() throws Exception {
-        // Hier würden Testanweisungen stehen
+    @Deployment(resources = "ExampleProcess.bpmn")
+    public void shouldDeployWithoutErrors() throws Exception {
+        // nothing here, test successful if deployment works
+        RuntimeService runtimeService = rule.getRuntimeService();
+        ProcessInstance instance = runtimeService.startProcessInstanceByKey("ExampleProcess");
+        assertThat(instance).isStarted();
     }
+
 }
