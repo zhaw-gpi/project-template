@@ -1,0 +1,31 @@
+<strong>DemoTestProject Taskpage</strong>
+
+<p>
+  Please correct you age. Don't cheat!
+</p>
+
+<form class="form-horizontal">
+  <div class="control-group">
+    <label class="control-label">Name</label>
+    <div class="controls">
+      <input type="text" 
+             cam-variable-name="name"
+             readonly="true" 
+             class="form-control" />      
+    </div>
+  </div>
+    <div class="control-group">
+    <label class="control-label">Your Age</label>
+    <div class="controls">
+      <input type="text" 
+             cam-variable-name="age"
+             cam-variable-type="Integer"
+             required
+             class="form-control" />
+    </div>
+  </div>
+
+  <script cam-script type="text/form-script">
+  // custom JavaScript goes here
+  </script>
+</form>

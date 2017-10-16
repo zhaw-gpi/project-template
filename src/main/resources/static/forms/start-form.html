@@ -1,0 +1,33 @@
+<strong>DemoTestProject Startpage</strong>
+
+<p>
+  You can use this form through Camunda Tasklist
+  by setting the formKey of a BPMN Start Event to:
+  <code>embedded:app:forms/start-form.html</code>
+</p>
+
+<form class="form-horizontal">
+  <div class="control-group">
+    <label class="control-label">Your Name</label>
+    <div class="controls">
+      <input type="text" 
+             cam-variable-name="name"
+             cam-variable-type="String"
+             required
+             class="form-control" />
+    </div>
+  <div class="control-group">
+    <label class="control-label">Your Age</label>
+    <div class="controls">
+      <input type="text" 
+             cam-variable-name="age"
+             cam-variable-type="Integer"
+             required
+             class="form-control" />
+    </div>
+  </div>
+
+  <script cam-script type="text/form-script">
+  // custom JavaScript goes here
+  </script>
+</form>
