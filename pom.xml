@@ -1,48 +1,41 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <groupId>ch.zhaw.gpi</groupId>
+    <!-- Versionsnummer jedesmal anpassen, wenn etwas ändert. Die erste Ziffer entspricht Spring Boot-Versionsnummer -->
+    <version>3.0.0</version>
     
     <artifactId>project-template</artifactId>
-        
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>1.5.6.RELEASE</version>
-    </parent>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <camunda.version>7.7.0</camunda.version>
-        <camunda-bpm-spring-boot-starter.version>2.2.0</camunda-bpm-spring-boot-starter.version>
+        <!-- Setzt die Spring Boot-Version auf 3.0.0, was Camunda 7.9 enthält -->
+        <camunda-bpm-spring-boot-starter.version>3.0.0</camunda-bpm-spring-boot-starter.version>
     </properties>
     
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <!-- Import dependency management from camunda -->
-                <groupId>org.camunda.bpm</groupId>
-                <artifactId>camunda-bom</artifactId>
-                <version>${camunda.version}</version>
-                <scope>import</scope>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.0.2.RELEASE</version>
                 <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
     
     <dependencies>
+        <!-- Import Camunda Spring Boot Webapps inklusive Process Engine -->
         <dependency>
-            <groupId>org.camunda.bpm.extension.springboot</groupId>
-            <artifactId>camunda-bpm-spring-boot-starter</artifactId>
-            <version>${camunda-bpm-spring-boot-starter.version}</version>
-        </dependency>
-	    
-        <dependency>
-            <groupId>org.camunda.bpm.extension.springboot</groupId>
+            <groupId>org.camunda.bpm.springboot</groupId>
             <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
             <version>${camunda-bpm-spring-boot-starter.version}</version>
         </dependency>
-	    
+        
+        <!-- Import Camunda REST API per Spring Boot -->
         <dependency>
-            <groupId>org.camunda.bpm.extension.springboot</groupId>
+            <groupId>org.camunda.bpm.springboot</groupId>
             <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
             <version>${camunda-bpm-spring-boot-starter.version}</version>
         </dependency>
@@ -55,13 +48,6 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.camunda.bpm.extension.springboot</groupId>
-            <artifactId>camunda-bpm-spring-boot-starter-test</artifactId>
-            <version>${camunda-bpm-spring-boot-starter.version}</version>
-            <scope>test</scope>
         </dependency>
 	    
         <dependency>
