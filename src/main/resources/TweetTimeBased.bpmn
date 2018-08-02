@@ -25,7 +25,7 @@
         <timeCycle xsi:type="tFormalExpression">R/PT10S</timeCycle>
       </timerEventDefinition>
     </startEvent>
-    <serviceTask id="TweetSenden" name="Tweet senden" camunda:type="external" camunda:topic="SendTweet">
+    <serviceTask id="TweetSenden" name="Tweet senden" camunda:type="external" camunda:topic="SendTweetTime">
       <extensionElements>
         <camunda:properties>
           <camunda:property name="KPI-Ratio" value="Tweet Rejected" />

@@ -18,6 +18,7 @@ Dieses Maven-Projekt kann genutzt werden als Startpunkt für eigene auf Camunda 
     1. einem Timer-Start-Ereignis, damit nach dem Deployment alle 10 Sekunden eine neue Instanz gestartet wird. Dies damit man zum Zeigen der Worker-Funktionalität nicht jedes Mal in der Task List einen Prozess durchspielen muss.
     2. einem Script Task, welcher per JavaScript die aktuelle Uhrzeit als zu veröffentlichender Tweet-Content aufbereitet
     3. einem Service Task, der 1:1 identisch ist mit demjenigen aus dem anderen Beispielprozess, um die Aufgabe von einem External Task Client ausführen zu lassen.
+    4. Das Topic heisst hier bewusst anders (SendTweetTime), weil hier nur das Mocking-Projekt darauf reagieren soll, da sonst rasch das Twitter-Konto gesperrt würde bei so vielen ähnlichen Posts.
 
 ## Verwendete Quellen
 Die aktuelle Version basiert vor allem auf dem Get Started-Beispiel von Camunda 7.9 (https://docs.camunda.org/get-started), verwendet aber auch das Know-How aus dem Umzugsprojekt des Herbstsemesters 2017.
