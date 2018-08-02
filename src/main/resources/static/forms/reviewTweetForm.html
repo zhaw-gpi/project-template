@@ -1,0 +1,50 @@
+<!--
+Formular für Kommunikationsabteilung, um gewünschten Tweet-Content anzunehmen
+oder abzulehnen mit Möglichkeit, den Grund anzugeben
+-->
+<!--
+Formular zum Startformular "Tweet-Anfrage eingereicht" und zum User Task "Tweet-Anfrage überarbeiten"
+Da dies das erste Formular ist, sehr ausführlich kommentiert
+Mehr Infos zu Bootstrap: https://www.w3schools.com/bootstrap/default.asp
+Mehr Infos zu AngularJS: https://angularjs.org/ und https://www.w3schools.com/angular/default.asp
+Mehr Infos zu Camunda Embedded Forms: https://docs.camunda.org/manual/7.9/reference/embedded-forms/
+Mehr Infos zu HTML Forms: https://www.w3schools.com/html/html_forms.asp
+-->
+<form role="form"  name="camundaForm">
+    <div class="form-group">
+        <label>Gewünschter Tweet-Text*</label>
+        <!-- readonly, damit dieser Text nicht verändert werden kann -->
+        <textarea 
+            name="tweetContent" 
+            rows="4"
+            class="form-control" 
+            cam-variable-name="tweetContent" 
+            cam-variable-type="String"
+            maxlength="280"
+            readonly="readonly"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Prüfergebnis*</label>
+        <select 
+            name="checkResult" 
+            cam-variable-name="checkResult"
+            cam-variable-type="String"
+            required>
+            <option value="accepted">Genehmigt</option>
+            <option value="revisable">Zu überarbeiten</option>
+            <option value="rejected">Abgelehnt</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Hinweise für Mitarbeiter zum Prüfergebnis</label>
+        <!-- readonly, damit dieser Text nicht verändert werden kann -->
+        <textarea 
+            name="checkResultComment" 
+            rows="4"
+            class="form-control" 
+            cam-variable-name="checkResultComment" 
+            cam-variable-type="String"></textarea>
+    </div>
+</form>

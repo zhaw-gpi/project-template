@@ -1,6 +1,0 @@
-# Ein Admin-User wird initial beim Deployment erstellt, sofern er noch nicht existiert
-camunda:
-  bpm:
-    admin-user:
-      id: demo
-      password: demo

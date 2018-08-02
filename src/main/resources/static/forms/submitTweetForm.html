@@ -1,0 +1,82 @@
+<!--
+Formular zum Startformular "Tweet-Anfrage eingereicht" und zum User Task "Tweet-Anfrage überarbeiten"
+Da dies das erste Formular ist, sehr ausführlich kommentiert
+Mehr Infos zu Bootstrap: https://www.w3schools.com/bootstrap/default.asp
+Mehr Infos zu AngularJS: https://angularjs.org/ und https://www.w3schools.com/angular/default.asp
+Mehr Infos zu Camunda Embedded Forms: https://docs.camunda.org/manual/7.9/reference/embedded-forms/
+Mehr Infos zu HTML Forms: https://www.w3schools.com/html/html_forms.asp
+-->
+<form role="form"  name="camundaForm">
+    <!-- Dem Benutzer wird in einem Infoblock mitgeteilt, wie der Prozess abläuft beim Startformular -->
+    <div class="alert alert-info" ng-show="checkResult !== 'revisable'">
+        Willkommen beim Prozess "Tweet-Anfragen verarbeiten". Geben Sie Ihren gewünschten Tweet-Text ein. Dieser wird von der Kommunikationsabteilung geprüft und Sie werden über das Prüfergebnis benachrichtigt.
+    </div>
+    
+    <!-- Dem Benutzer wird in einem Warnblock mitgeteilt, wieso eine Überarbeitung erforderlich ist
+         bei User Task "Tweet-Anfrage überarbeiten" -->
+    <div class="alert alert-warning" ng-show="checkResult === 'revisable'">      
+        Ihre Tweet-Anfrage muss überarbeitet werden. Mitteilung der Kommunikationsabteilung:
+        {{checkResultComment}}
+    </div>
+
+    <!-- Bootstrap-Klasse, um Label plus Eingabefeld als Gruppe zu deklarieren -->
+    <div class="form-group">
+        <label>E-Mailadresse*</label>
+        <!-- type="email", damit der Browser weiss, dass nur E-Mail-Adressen als Eingaben erlaubt sind -->
+        <!-- class="form-control" ist Bootstrap-Klasse, damit klar ist, dass eine 100%-Breite erwünscht ist -->
+        <!-- cam-variable-name="emailAddress", damit einerseits dieses Formularfeld 
+        an die Prozessvariable emailAddress gebunden wird als auch an das Angular-Modellelement emailAddress -->
+        <!-- cam-variable-type="String", damit für Camunda klar ist, dass die Prozessvariable vom Typ String sein soll -->
+        <!-- placeholder="hans...", damit der Benutzer schon mal eine gültige Eingabe als Platzhalter sieht -->
+        <input type="email" 
+               name="emailAddress" 
+               class="form-control" 
+               cam-variable-name="emailAddress" 
+               cam-variable-type="String"
+               placeholder="hans.muster@domain.ch"
+               required>
+        <!-- Hilfetext, der angezeigt wird, wenn eine ungültige Mail-Adresse angegeben wird -->
+        <p class="help-block" ng-show="camundaForm.emailAddress.$invalid">
+            Geben Sie Ihre E-Mail-Adresse im Format name@beispiel.org ein.
+        </p>
+    </div>
+    
+    <div class="form-group">
+        <label>Gewünschter Tweet-Text*</label>
+        <!-- textarea statt input, da mehrzeiliges Eingabefeld -->
+        <!-- rows="4", um anzugeben, wie hoch das Textfeld sein soll -->
+        <!-- maxlength="280", damit nicht mehr als 280 Zeichen eingegeben werden können -->
+        <!-- required, damit hier zwingend etwas einzugeben ist -->
+        <textarea 
+               name="tweetContent" 
+               rows="4"
+               class="form-control" 
+               cam-variable-name="tweetContent" 
+               cam-variable-type="String"
+               maxlength="280"
+               required></textarea>
+    </div>
+
+    <script cam-script type="text/form-script">
+        // Die AngularJS-Scope-Variable camForm.variableManager wird einer lokalen
+        // Variable zugewiesen, damit diese mehrfach verwendet werden kann in den
+        // folgenden Funktionen
+        var variableManager = camForm.variableManager;
+
+        // Lädt beim Ereignis, dass das Formular geladen aber noch nicht angezeigt ist,
+        // benötigte Prozessvariablen von der Process Engine (Server) in Variablen im 
+        // variableManager-Objekt (Client)
+        camForm.on('form-loaded', function() {
+            variableManager.fetchVariable('checkResult');
+            variableManager.fetchVariable('checkResultComment');
+        });
+
+        // Sobald alle Variablen client-seitig zur Verfügung stehen, werden diese 
+        // dem AngularJS-Scope-Objekt übergeben, damit diese z.B. über ng-bind
+        // angezeigt werden können
+        camForm.on('variables-fetched', function() {
+            $scope.checkResult = variableManager.variableValue('checkResult');
+            $scope.checkResultComment = variableManager.variableValue('checkResultComment');
+        });
+    </script>
+</form>

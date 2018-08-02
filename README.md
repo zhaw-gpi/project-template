@@ -1,32 +1,52 @@
-Björn Scheppler, 17.9.2017
+Björn Scheppler, 2.8.2018
 
-# Read Me project-template
-In diesem Projekt geht es darum, aufzuzeigen, wie Camunda per Spring Boot mit integriertem Tomcat und filebasierter H2-Datenbank genutzt werden kann.
+# Camunda Projekttemplate (project-template)
+Dieses Maven-Projekt kann genutzt werden als Startpunkt für eigene auf Camunda beruhende Projekte. Enthalten sind folgende Funktionalitäten:
+1. Spring Boot 2.0.2 konfiguriert für Tomcat
+2. Camunda Spring Boot Starter 3.0.0
+3. Camunda Process Engine, REST API und Webapps (Tasklist, Cockpit, Admin) in der Version 7.9
+4. H2-Datenbank-Unterstützung (von Camunda Engine benötigt)
+5. "Sinnvolle" Grundkonfiguration in application.properties für Camunda, Datenbank und Tomcat
+6. Ein Beispielprozess (Verarbeitung von Tweet-Anfragen) bestehend aus:
+    1. BPMN-Modell mit User Tasks und Service Tasks
+    2. HTML-Formulare als Implementation für die User Tasks/das Startformular
+    3. Eine JavaDelegate-Klasse als Implementation für den Service Task "Mitarbeiter benachrichtigen" (per Mail)
+    4. Für die Implementation für den Service Task "Tweet senden" ist eines der folgenden separaten Github-Projekte zu nutzen:
+        1. External Task Client Mocking Template (https://github.com/zhaw-gpi/external-task-client-mocking-template)
+        2. External Task Client Spring Boot Template (https://github.com/zhaw-gpi/external-task-client-spring-boot-template)
+7. Ein Beispielprozess (Zeit-gesteurtes Tweet senden) bestehend aus einem BPMN-Modell mit:
+    1. einem Timer-Start-Ereignis, damit nach dem Deployment alle 10 Sekunden eine neue Instanz gestartet wird. Dies damit man zum Zeigen der Worker-Funktionalität nicht jedes Mal in der Task List einen Prozess durchspielen muss.
+    2. einem Script Task, welcher per JavaScript die aktuelle Uhrzeit als zu veröffentlichender Tweet-Content aufbereitet
+    3. einem Service Task, der 1:1 identisch ist mit demjenigen aus dem anderen Beispielprozess, um die Aufgabe von einem External Task Client ausführen zu lassen.
 
-# Verwendete Quellen
-Erste Version stammt von Peter Heinrich. Ich habe vor allem sichergestellt, dass die aktuellen Versionen von Camunda/Spring Boot Starter im pom.xml verwendet werden sowie das Ganze ausführlich dokumentiert für das bessere Verständnis durch uns aber auch Studierende und schliesslich noch den Namespace von ...ifi... zu ...iwi... geändert.
-Weitere Quellen:
-https://camunda.github.io/camunda-bpm-spring-boot-starter/docs/current/index.html
-https://github.com/camunda/camunda-bpm-spring-boot-starter
-https://forum.camunda.org/c/community-extensions/spring-boot-starter
-https://github.com/camunda/camunda-bpm-spring-boot-starter/issues
+## Verwendete Quellen
+Die aktuelle Version basiert vor allem auf dem Get Started-Beispiel von Camunda 7.9 (https://docs.camunda.org/get-started), verwendet aber auch das Know-How aus dem Umzugsprojekt des Herbstsemesters 2017.
 
-# Status
-1. Wenn man zunächst das Projekt mit Build initialisiert und dann jeweils mit Run startet, wird Tomcat wird gestartet, Camunda in der Version 7.7 mit den Prozessen und Eigenschaften (application.properties und application.yaml) deployt
-2. Man kann sich anschliessend auf http://localhost:8080 mit demo:demo anmelden und einen Prozess starten.
-3. Erstellte Filter und Tasks, Prozessinstanzen, usw. werden dank file-basierter H2-Datenbank erhalten, auch wenn Tomcat gestoppt wird.
-4. Man muss noch von Hand mindestens einen Task Filter erstellen, damit überhaupt erstellte Tasks angezeigt werden (Create a filter, wobei Assigneee = ${currentUser()} ist).
-5. Um auf die Datenbank zuzugreifen, http://localhost:8080/console eingeben, bei Benutzername und Passwort dann je sa, bei der URL jdbc:h2:./zhaw-gpi;MVCC=TRUE;TRACE_LEVEL_FILE=0;DB_CLOSE_ON_EXIT=FALSE
+## Vorbereitungen, Deployment und Start
+1. Erstmalig oder bei Problemen ein Clean & Build (Netbeans), respektive "mvn clean install" (Cmd) durchführen
+2. Bei Änderungen am POM-File oder bei (Neu)kompilierungsbedarf genügt ein Build (Netbeans), respektive "mvn install"
+3. Damit der Mail-Versand funktioniert, ist der Bereich # Mail-Konfiguration in application.properties anzupassen, falls nicht Gmail genutzt wird, respektive sind in Netbeans unter Project ->Properties ->Actions -> Run project -> Set Properties: Add neue Umgebungsvariablen anzulegen: Env.mailUser=BENUTZERNAME und Env.mailPass=PASSWORT. Das kann z.B. das Konto von zwi.sml@gmail.com sein oder ein Beliebiges -> Achtung: falls Zwei-Faktoren-Authentifizierung aktiviert ist, muss ein App-Passwort erstellt werden gemäss https://support.google.com/accounts/answer/185833?hl=de.
+4. Für den Start ist ein Run (Netbeans), respektive "java -jar .\target\project-template-3.0.1.jar" (Cmd) erforderlich. Dabei wird Tomcat wird gestartet, die Datenbank erstellt/hochgefahren, Camunda in der Version 7.9 mit dem Beispiel-Prozess und den Eigenschaften (application.properties) hochgefahren.
+5. Das Beenden geschieht mit Stop Build/Run (Netbeans), respektive CTRL+C (Cmd)
+6. Falls man die bestehenden Prozessdaten nicht mehr benötigt und die Datenbank inzwischen recht angewachsen ist, genügt es, die Datei zhaw-gpi.mv.db im Wurzelverzeichnis des Projekts zu löschen.
 
-# Learnings
-1. Die Idee von Peter mit Spring Boot ist fantastisch. 
-2. Die Idee ist deshalb so bestechend, weil
- 1. Keine WAR-Files deployen muss.
- 2. Keine Camunda-Distribution mit Tomcat separat installiert werden muss, sondern eine Entwicklungsumgebung, JDK und Maven ausreichen.
- 3. Die Fehlerquellen dadurch massiv sinken.
- 4. Die Zeit fürs Deployment massiv sinken.
- 5. Eine Remote-Debugging-Konfiguration entfällt: Statt Run as, kann man einfach Debug As verwenden.
-3. Als einziger Nachteil sehe ich bis jetzt nur, dass die Studierenden die Komplexität nicht erfassen, weil einfach im Hintergrund alles magic abläuft. Dem könnte man begegnen mit:
- 1. In der Vorlesung wird den Studierenden "klassisch" gezeigt, wie ein solcher Stack aufgebaut ist und wie man Camunda "normalerweise" deployt.
- 2. Mit guten Systemdiagrammen wird gezeigt, wie der Stack im Hintergrund aufgebaut ist.
- 3. Durch ein Debugging geht man mit den Studierenden Schritt für Schritt durch den ganzen Build-Prozess und erklärt, was da gerade geschieht.
+## Grundlegende Nutzung (Tasklist und Cockpit)
+1. http://localhost:8080 aufrufen
+2. Anmelden mit Benutzername und Passwort a
+3. Tasklist öffnen (und in einem separaten Tab das Cockpit)
+4. "Start Process" > "Verarbeitung von Tweet-Anfragen"
+5. Nun wird man durch den Prozess geführt. Folgende Hinweise:
+    1. Bei E-Mail-Adresse eine funktionierende Mail-Adresse eingeben, an die man auch wirklich eine Benachrichtigung will.
+    2. Bei "Tweet-Anfrage" prüfen ist ein Claim erforderlich, da bewusst jede Person aus der Kommunikationsabteilung, die Aufgabe ausführen können soll. Der Nutzer a hat als Admin Zugriff auf alle Aufgaben. PS: Selbst wenn man einen zusätzlichen Nicht-Admin-Benutzer erstellt und diesen nicht der Gruppe kommunikationsabteilung zuweist, sieht er trotzdem alle Aufgaben für diese. Grund: Authorisierung ist standardmässig deaktiviert => Jeder Benutzer hat alle Rechte.
+    3. Damit der External Task "Tweet senden" auch tatsächlich erledigt wird, muss eines der beiden Projekte (siehe Punkt 6.4 in der Einleitung) gestartet sein.
+6. Im Cockpit kann man bei Bedarf den Prozessfortschritt und mehr verfolgen
+
+## Fortgeschrittene Nutzung (H2 Console)
+1. Um auf die Datenbankverwaltungs-Umgebung zuzugreifen, http://localhost:8080/console eingeben.
+2. Anmeldung über:
+    1. Benutzername sa
+    2. Passwort: leer lassen
+    3. URL jdbc:h2:./zhaw-gpi
+
+## Fortgeschrittene Nutzung (Zugriff über REST)
+Die Engine kann auch per REST API gesteuert werden. Hierzu die Dokumentation unter https://docs.camunda.org/manual/7.9/reference/rest/ lesen. Wegen Spring Boot ist die URL für die REST API minimal anders als in der Dokumentation beschrieben. Sie ist: http://localhost:8080/rest/. So gibt z.B. http://localhost:8080/rest/engine den Namen der Engine (default) zurück.
