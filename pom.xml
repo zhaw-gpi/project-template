@@ -8,15 +8,20 @@
     <groupId>ch.zhaw.gpi</groupId>
     <artifactId>project-template</artifactId>
     <name>Camunda Projekttemplate</name>
-    <version>3.0.1</version>
+    <version>3.0.2</version>
     
     <!-- Konfiguration des Maven-Projekts -->
     <properties>
         <!-- Nicht bloss ANSI, sondern UTF-8 soll unterstützt sein -->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         
         <!-- Setzt die Spring Boot-Starter-Version auf 3.0.0, was Camunda 7.9 enthält -->
         <camunda-bpm-spring-boot-starter.version>3.0.0</camunda-bpm-spring-boot-starter.version>
+        
+        <!-- Java 8 soll genutzt werden beim Kompilieren -->
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     
     <!-- Setzt Spring Boot als massgebend für die Verwaltung der Abhängigkeiten in Maven -->
@@ -71,7 +76,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-mail</artifactId>
-            <version>2.0.3.RELEASE</version>
         </dependency>
     </dependencies>
     

@@ -1,4 +1,4 @@
-Björn Scheppler, 2.8.2018
+Björn Scheppler, 3.8.2018
 
 # Camunda Projekttemplate (project-template)
 Dieses Maven-Projekt kann genutzt werden als Startpunkt für eigene auf Camunda beruhende Projekte. Enthalten sind folgende Funktionalitäten:
@@ -41,6 +41,21 @@ Die aktuelle Version basiert vor allem auf dem Get Started-Beispiel von Camunda 
     2. Bei "Tweet-Anfrage" prüfen ist ein Claim erforderlich, da bewusst jede Person aus der Kommunikationsabteilung, die Aufgabe ausführen können soll. Der Nutzer a hat als Admin Zugriff auf alle Aufgaben. PS: Selbst wenn man einen zusätzlichen Nicht-Admin-Benutzer erstellt und diesen nicht der Gruppe kommunikationsabteilung zuweist, sieht er trotzdem alle Aufgaben für diese. Grund: Authorisierung ist standardmässig deaktiviert => Jeder Benutzer hat alle Rechte.
     3. Damit der External Task "Tweet senden" auch tatsächlich erledigt wird, muss eines der beiden Projekte (siehe Punkt 6.4 in der Einleitung) gestartet sein.
 6. Im Cockpit kann man bei Bedarf den Prozessfortschritt und mehr verfolgen
+
+## Fortgeschrittene Nutzung (Duplikat-Tweet-Fehler und Behebung)
+In diesem Beispiel geht es darum zu zeigen, wie ein Fehler im External Task Client zu einem Incident der entsprechenden Prozessinstanz führt, welcher im Cockpit "behoben" werden kann und über einen Retry dieses Mal fehlerfrei abläuft.
+1. Auf der Twitter-Timeline den letzten Post in die Zwischenablage kopieren (Ziel ist, eine DuplicateStatusException zu provozieren)
+2. Tasklist öffnen (und in einem separaten Tab das Cockpit)
+3. "Start Process" > "Verarbeitung von Tweet-Anfragen"
+4. Den Text aus der Zwischenablage einfügen
+5. Im nächsten Schritt die Tweet-Anfrage genehmigen => ein neuer Task wird erstellt
+6. Spätestens jetzt den External Task Client Spring Boot Template (https://github.com/zhaw-gpi/external-task-client-spring-boot-template) starten
+7. Dieser wird den Task aufnehmen, aber einen Fehler produzieren (DuplicateStatusException) und diesen an die Process Engine weitergeben.
+8. Dies führt dort zu einem Incident (im Cockpit zu sehen).
+9. Eine Variante, den Incident im Cockpit zu beheben ist:
+    1. Die Variable TweetContent so anpassen, dass sie kein Duplikat mehr darstellt.
+    2. Einen Retry des External Tasks anzustossen.
+    3. Warten, bis es dieses Mal fehlefrei durchläuft.
 
 ## Fortgeschrittene Nutzung (H2 Console)
 1. Um auf die Datenbankverwaltungs-Umgebung zuzugreifen, http://localhost:8080/console eingeben.
