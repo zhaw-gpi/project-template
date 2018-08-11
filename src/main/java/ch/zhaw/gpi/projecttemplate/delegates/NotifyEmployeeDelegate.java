@@ -51,7 +51,7 @@ public class NotifyEmployeeDelegate implements JavaDelegate{
                 mailHauptteil + "\n\n" + "Ihre Kommunikationsabteilung";
         
         // Mail über Mailservice versenden
-        emailService.sendMail(emailAddress, "Neuigkeiten zu Ihrer Tweet-Anfrage", mailBody);
+        emailService.sendSimpleMail(emailAddress, "Neuigkeiten zu Ihrer Tweet-Anfrage", mailBody);
     }
     
 }

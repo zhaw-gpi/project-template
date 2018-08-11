@@ -85,7 +85,7 @@
       <outgoing>SequenceFlow_17yy4ko</outgoing>
     </serviceTask>
     <sequenceFlow id="SequenceFlow_0zvcww5" sourceRef="MitarbeiterBenachrichtigen" targetRef="TweetAnfrageBehandelt" />
-    <sendTask id="MitarbeiterBenachrichtigen" name="Mitarbeiter benachrichtigen" camunda:delegateExpression="#{notifyEmployeeAdapter}">
+    <sendTask id="MitarbeiterBenachrichtigen" name="Mitarbeiter benachrichtigen" camunda:asyncBefore="true" camunda:delegateExpression="#{notifyEmployeeAdapter}">
       <incoming>SequenceFlow_0yart44</incoming>
       <outgoing>SequenceFlow_0zvcww5</outgoing>
     </sendTask>
