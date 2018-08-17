@@ -30,6 +30,8 @@ public class EmailService {
     // Application.Properties-Eigenschaften in Variablen auslesen
     @Value("${mail.debug}")
     private Boolean debugMail;
+    @Value("${mail.senderaddress}")
+    private String senderAddress;
 
     /**
      * Methode, um eine einfache Mail zu senden
@@ -50,6 +52,8 @@ public class EmailService {
             simpleMailMessage.setTo(to);
             simpleMailMessage.setSubject(subject);
             simpleMailMessage.setText(body);
+            simpleMailMessage.setFrom(senderAddress);
+            simpleMailMessage.setReplyTo(senderAddress);
 
             // Versucht, die Mail abzusenden. Klappt es nicht, wird die Fehlermeldung
             // in der Konsole ausgegeben
@@ -87,6 +91,8 @@ public class EmailService {
                 mimeMessageHelper.setTo(to);
                 mimeMessageHelper.setSubject(subject);
                 mimeMessageHelper.setText(body);
+                mimeMessageHelper.setFrom(senderAddress);
+                mimeMessageHelper.setReplyTo(senderAddress);
 
                 // Fügt das Attachment hinzu, falls Pfad-Angabe vorhanden
                 if (pathToAttachment.isPresent()) {
