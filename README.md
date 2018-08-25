@@ -25,15 +25,16 @@ Dieses Maven-Projekt kann genutzt werden als Startpunkt für eigene auf Camunda 
 Die aktuelle Version basiert vor allem auf dem Get Started-Beispiel von Camunda 7.9 (https://docs.camunda.org/get-started), verwendet aber auch das Know-How aus dem Umzugsprojekt des Herbstsemesters 2017.
 
 ## Vorbereitungen, Deployment und Start
-1. Wenn man die Enterprise Edition von Camunda verwenden will, benötigt man die Zugangsdaten zum Nexus Repository und eine gültige Lizenz. Wie man diese "installiert", steht in den Kommentaren im pom.xml.
-2. Erstmalig oder bei Problemen ein Clean & Build (Netbeans), respektive "mvn clean install" (Cmd) durchführen
-3. Bei Änderungen am POM-File oder bei (Neu)kompilierungsbedarf genügt ein Build (Netbeans), respektive "mvn install"
-4. Damit der Mail-Versand funktioniert, ist der Bereich # Mail-Konfiguration in application.properties anzupassen:
-    1. Falls nicht Gmail genutzt wird, entsprechende Angaben zum SMTP-Server einfügen
-    2. Falls Gmail genutzt wird, in Netbeans unter Project ->Properties ->Actions -> Run project (und Debug project) -> Set Properties: Add neue Umgebungsvariablen anzulegen: Env.mailUser=BENUTZERNAME und Env.mailPass=PASSWORT. Das kann z.B. das Konto von zwi.sml@gmail.com sein oder ein Beliebiges -> Achtung: falls Zwei-Faktoren-Authentifizierung aktiviert ist, muss ein App-Passwort erstellt werden gemäss https://support.google.com/accounts/answer/185833?hl=de.
-    3. Falls gar keine "echte" Mail gesendet werden soll: In application.properties mail.debug auf true setzen. Dann wird kein Mail versendet, sondern nur eine Ausgabe in die Kommandozeile erfolgt.4. Für den Start ist ein Run (Netbeans), respektive "java -jar .\target\project-template-3.0.1.jar" (Cmd) erforderlich. Dabei wird Tomcat wird gestartet, die Datenbank erstellt/hochgefahren, Camunda in der Version 7.9 mit dem Beispiel-Prozess und den Eigenschaften (application.properties) hochgefahren.
-5. Das Beenden geschieht mit Stop Build/Run (Netbeans), respektive CTRL+C (Cmd)
-6. Falls man die bestehenden Prozessdaten nicht mehr benötigt und die Datenbank inzwischen recht angewachsen ist, genügt es, die Datei zhaw-gpi.mv.db im Wurzelverzeichnis des Projekts zu löschen.
+1. Wenn man die **Enterprise Edition** von Camunda verwenden will, benötigt man die Zugangsdaten zum Nexus Repository und eine gültige Lizenz. Wie man diese "installiert", steht in den Kommentaren im pom.xml.
+2. **Erstmalig** oder bei Problemen ein **Clean & Build (Netbeans)**, respektive `mvn clean install` (Cmd) durchführen
+3. Bei Änderungen am POM-File oder bei **(Neu)kompilierungsbedarf** genügt ein **Build (Netbeans)**, respektive `mvn install`
+4. Damit der **Mail-Versand** funktioniert, ist der Bereich # Mail-Konfiguration in application.properties anzupassen:
+    1. Falls nicht Gmail genutzt wird, entsprechende Angaben zum **SMTP-Server** einfügen
+    2. Falls **Gmail** genutzt wird, in Netbeans unter Project ->Properties ->Actions -> Run project (und Debug project) -> Set Properties: Add **neue Umgebungsvariablen** anzulegen: Env.mailUser=BENUTZERNAME und Env.mailPass=PASSWORT. Das kann z.B. das Konto von zwi.sml@gmail.com sein oder ein Beliebiges -> Achtung: falls Zwei-Faktoren-Authentifizierung aktiviert ist, muss ein App-Passwort erstellt werden gemäss https://support.google.com/accounts/answer/185833?hl=de.
+    3. Falls gar keine "echte" Mail gesendet werden soll: In application.properties **mail.debug** auf true setzen. Dann wird kein Mail versendet, sondern nur eine Ausgabe in die Kommandozeile erfolgt.
+5. Für den **Start** ist ein **Run (Netbeans)**, respektive `java -jar .\target\NAME DES JAR-FILES.jar` (Cmd) erforderlich. Dabei wird Tomcat gestartet, die Datenbank erstellt/hochgefahren, Camunda in der Version 7.9 mit dem Beispiel-Prozess und den Eigenschaften (application.properties) hochgefahren.
+6. Das **Beenden** geschieht mit **Stop Build/Run (Netbeans)**, respektive **CTRL+C** (Cmd)
+7. Falls man die bestehenden **Prozessdaten nicht mehr benötigt** und die Datenbank inzwischen recht angewachsen ist, genügt es, die Datei DATENBANKNAME.mv.db im Wurzelverzeichnis des Projekts zu löschen.
 
 ## Grundlegende Nutzung (Tasklist und Cockpit)
 1. http://localhost:8080 aufrufen
