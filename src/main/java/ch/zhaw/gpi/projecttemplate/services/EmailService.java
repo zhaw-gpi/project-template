@@ -59,6 +59,8 @@ public class EmailService {
             // in der Konsole ausgegeben
             try {
                 javaMailSender.send(simpleMailMessage);
+                // In der Konsole mitteilen, dass die Mail versandt wurde für einfacheres Debugging
+                System.out.println("Mail erfolgreich versandt");
             } catch (MailException me) {
                 System.err.println(me.getLocalizedMessage());
             }
