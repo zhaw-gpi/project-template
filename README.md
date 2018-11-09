@@ -1,4 +1,4 @@
-Björn Scheppler, 13.8.2018
+Björn Scheppler, 9.11.2018
 
 # Camunda Projekttemplate (project-template)
 Dieses Maven-Projekt kann genutzt werden als Startpunkt für eigene auf Camunda beruhende Projekte. Enthalten sind folgende Funktionalitäten:
@@ -9,12 +9,13 @@ Dieses Maven-Projekt kann genutzt werden als Startpunkt für eigene auf Camunda 
 5. Spring Boot Starter Mail für den Email-Versand und zugehörige Klasse EmailService
 6. "Sinnvolle" Grundkonfiguration in application.properties für Camunda, Datenbank, Tomcat und EMail
 7. Ein Beispielprozess (Verarbeitung von Tweet-Anfragen) bestehend aus:
-    1. BPMN-Modell mit User Tasks und Service Tasks
+    1. BPMN-Modell mit User Tasks, Service Tasks und Business Rules Tasks
     2. HTML-Formulare als Implementation für die User Tasks/das Startformular
     3. Eine JavaDelegate-Klasse als Implementation für den Service Task "Mitarbeiter benachrichtigen" (per Mail)
     4. Für die Implementation für den Service Task "Tweet senden" ist eines der folgenden separaten Github-Projekte zu nutzen:
         1. External Task Client Mocking Template (https://github.com/zhaw-gpi/external-task-client-mocking-template)
         2. External Task Client Spring Boot Template (https://github.com/zhaw-gpi/external-task-client-spring-boot-template)
+    5. Ein DMN-Diagramm mit einer Entscheidungstabelle zum automatischen Ablehnen einer Anfrage, wenn sie verbotene Wörter enthält
 8. Ein Beispielprozess (Zeit-gesteurtes Tweet senden) bestehend aus einem BPMN-Modell mit:
     1. einem Timer-Start-Ereignis, damit nach dem Deployment alle 10 Sekunden eine neue Instanz gestartet wird. Dies damit man zum Zeigen der Worker-Funktionalität nicht jedes Mal in der Task List einen Prozess durchspielen muss.
     2. einem Script Task, welcher per JavaScript die aktuelle Uhrzeit als zu veröffentlichender Tweet-Content aufbereitet
@@ -43,8 +44,9 @@ Die aktuelle Version basiert vor allem auf dem Get Started-Beispiel von Camunda 
 4. "Start Process" > "Verarbeitung von Tweet-Anfragen"
 5. Nun wird man durch den Prozess geführt. Folgende Hinweise:
     1. Bei E-Mail-Adresse eine funktionierende Mail-Adresse eingeben, an die man auch wirklich eine Benachrichtigung will.
-    2. Bei "Tweet-Anfrage" prüfen ist ein Claim erforderlich, da bewusst jede Person aus der Kommunikationsabteilung, die Aufgabe ausführen können soll. Der Nutzer a hat als Admin Zugriff auf alle Aufgaben. PS: Selbst wenn man einen zusätzlichen Nicht-Admin-Benutzer erstellt und diesen nicht der Gruppe kommunikationsabteilung zuweist, sieht er trotzdem alle Aufgaben für diese. Grund: Authorisierung ist standardmässig deaktiviert => Jeder Benutzer hat alle Rechte.
-    3. Damit der External Task "Tweet senden" auch tatsächlich erledigt wird, muss eines der beiden Projekte (siehe Punkt 6.4 in der Einleitung) gestartet sein.
+    2. Möchte man, dass der Tweet automatisch abgelehnt wird, dann im Tweet-Content eines der Wörter 'Buzzword' oder 'Digitalisierung' mit einfügen (Gross-/Kleinschreibung berücksichtigen).
+    3. Bei "Tweet-Anfrage" prüfen ist ein Claim erforderlich, da bewusst jede Person aus der Kommunikationsabteilung, die Aufgabe ausführen können soll. Der Nutzer a hat als Admin Zugriff auf alle Aufgaben. PS: Selbst wenn man einen zusätzlichen Nicht-Admin-Benutzer erstellt und diesen nicht der Gruppe kommunikationsabteilung zuweist, sieht er trotzdem alle Aufgaben für diese. Grund: Authorisierung ist standardmässig deaktiviert => Jeder Benutzer hat alle Rechte.
+    4. Damit der External Task "Tweet senden" auch tatsächlich erledigt wird, muss eines der beiden Projekte (siehe Punkt 6.4 in der Einleitung) gestartet sein.
 6. Im Cockpit kann man bei Bedarf den Prozessfortschritt und mehr verfolgen
 
 ## Fortgeschrittene Nutzung (Duplikat-Tweet-Fehler und Behebung)

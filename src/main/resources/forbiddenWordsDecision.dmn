@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_13m4okk" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="forbiddenWordsDecision" name="Verbotene Wörter">
+    <extensionElements>
+      <biodi:bounds x="534" y="250" width="180" height="80" />
+    </extensionElements>
+    <decisionTable id="decisionTable_1" hitPolicy="FIRST">
+      <input id="input_1" label="Verbotene Wörter">
+        <inputExpression id="inputExpression_1" typeRef="string">
+          <text>tweetContent</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="Prüfentscheid" name="checkResult" typeRef="string" />
+      <output id="OutputClause_022lqwr" label="Prüfentscheid Details" name="checkResultComment" typeRef="string" />
+      <rule id="DecisionRule_1wynfba">
+        <description>Ablehnen</description>
+        <inputEntry id="UnaryTests_0fv2shk" expressionLanguage="juel">
+          <text>tweetContent.contains("Digitalisierung")</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0styuj4">
+          <text>"rejected"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_061lztb">
+          <text>"Automatisch abgelehnt aufgrund verbotener Wörter"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0wqb8ja">
+        <description>Ablehnen</description>
+        <inputEntry id="UnaryTests_0l01hpd" expressionLanguage="juel">
+          <text>tweetContent.contains("Buzzword")</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0aw1it7">
+          <text>"rejected"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ujqkcg">
+          <text>"Automatisch abgelehnt aufgrund verbotener Wörter"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0s5vus6">
+        <description>Manuelle Prüfung notwendig</description>
+        <inputEntry id="UnaryTests_09ly0cf">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14sj3q5">
+          <text>"manualCheckRequired"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0fhgh7c">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
