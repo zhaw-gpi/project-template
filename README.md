@@ -1,4 +1,4 @@
-Björn Scheppler, 9.11.2018
+Björn Scheppler, 21.11.2018
 
 # Camunda Projekttemplate (project-template)
 Dieses Maven-Projekt kann genutzt werden als Startpunkt für eigene auf Camunda beruhende Projekte. Enthalten sind folgende Funktionalitäten:
@@ -11,11 +11,12 @@ Dieses Maven-Projekt kann genutzt werden als Startpunkt für eigene auf Camunda 
 7. Ein Beispielprozess (Verarbeitung von Tweet-Anfragen) bestehend aus:
     1. BPMN-Modell mit User Tasks, Service Tasks und Business Rules Tasks
     2. HTML-Formulare als Implementation für die User Tasks/das Startformular
-    3. Eine JavaDelegate-Klasse als Implementation für den Service Task "Mitarbeiter benachrichtigen" (per Mail)
-    4. Für die Implementation für den Service Task "Tweet senden" ist eines der folgenden separaten Github-Projekte zu nutzen:
+    3. Eine JavaDelegate-Klasse als Implementation für den Service Task "Mitarbeiter benachrichtigen" (per Mail) (NotifyEmployeeDelegate)
+    4. Eine JavaDelegate-Klasse als Implementation für den Service Task "Benutzer-Informationen auslesen" (GetUserInformationDelegate), welche wiederum eine Service-Klasse aufruft (UserService), welche wiederum einen REST-Service aufruft (siehe separates Projekt: https://github.com/zhaw-gpi/rest-service-template)
+    5. Für die Implementation für den Service Task "Tweet senden" ist eines der folgenden separaten Github-Projekte zu nutzen:
         1. External Task Client Mocking Template (https://github.com/zhaw-gpi/external-task-client-mocking-template)
         2. External Task Client Spring Boot Template (https://github.com/zhaw-gpi/external-task-client-spring-boot-template)
-    5. Ein DMN-Diagramm mit einer Entscheidungstabelle zum automatischen Ablehnen einer Anfrage, wenn sie verbotene Wörter enthält
+    6. Ein DMN-Diagramm mit einer Entscheidungstabelle zum automatischen Ablehnen einer Anfrage, wenn sie verbotene Wörter enthält
 8. Ein Beispielprozess (Zeit-gesteurtes Tweet senden) bestehend aus einem BPMN-Modell mit:
     1. einem Timer-Start-Ereignis, damit nach dem Deployment alle 10 Sekunden eine neue Instanz gestartet wird. Dies damit man zum Zeigen der Worker-Funktionalität nicht jedes Mal in der Task List einen Prozess durchspielen muss.
     2. einem Script Task, welcher per JavaScript die aktuelle Uhrzeit als zu veröffentlichender Tweet-Content aufbereitet

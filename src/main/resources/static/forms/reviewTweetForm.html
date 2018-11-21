@@ -12,6 +12,18 @@ Mehr Infos zu HTML Forms: https://www.w3schools.com/html/html_forms.asp
 -->
 <form role="form"  name="camundaForm">
     <div class="form-group">
+        <label>Mitarbeiter</label>
+        <!-- readonly, damit dieser Text nicht verändert werden kann -->
+        <input 
+            name="tweetContent" 
+            class="form-control" 
+            cam-variable-name="firstName" 
+            cam-variable-type="String"
+            readonly="readonly"
+            type="text">
+    </div>
+    
+    <div class="form-group">
         <label>Gewünschter Tweet-Text*</label>
         <!-- readonly, damit dieser Text nicht verändert werden kann -->
         <textarea 

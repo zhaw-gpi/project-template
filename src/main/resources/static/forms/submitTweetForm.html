@@ -18,28 +18,6 @@ Mehr Infos zu HTML Forms: https://www.w3schools.com/html/html_forms.asp
         Ihre Tweet-Anfrage muss überarbeitet werden. Mitteilung der Kommunikationsabteilung:
         {{checkResultComment}}
     </div>
-
-    <!-- Bootstrap-Klasse, um Label plus Eingabefeld als Gruppe zu deklarieren -->
-    <div class="form-group">
-        <label>E-Mailadresse*</label>
-        <!-- type="email", damit der Browser weiss, dass nur E-Mail-Adressen als Eingaben erlaubt sind -->
-        <!-- class="form-control" ist Bootstrap-Klasse, damit klar ist, dass eine 100%-Breite erwünscht ist -->
-        <!-- cam-variable-name="emailAddress", damit einerseits dieses Formularfeld 
-        an die Prozessvariable emailAddress gebunden wird als auch an das Angular-Modellelement emailAddress -->
-        <!-- cam-variable-type="String", damit für Camunda klar ist, dass die Prozessvariable vom Typ String sein soll -->
-        <!-- placeholder="hans...", damit der Benutzer schon mal eine gültige Eingabe als Platzhalter sieht -->
-        <input type="email" 
-               name="emailAddress" 
-               class="form-control" 
-               cam-variable-name="emailAddress" 
-               cam-variable-type="String"
-               placeholder="hans.muster@domain.ch"
-               required>
-        <!-- Hilfetext, der angezeigt wird, wenn eine ungültige Mail-Adresse angegeben wird -->
-        <p class="help-block" ng-show="camundaForm.emailAddress.$invalid">
-            Geben Sie Ihre E-Mail-Adresse im Format name@beispiel.org ein.
-        </p>
-    </div>
     
     <div class="form-group">
         <label>Gewünschter Tweet-Text*</label>

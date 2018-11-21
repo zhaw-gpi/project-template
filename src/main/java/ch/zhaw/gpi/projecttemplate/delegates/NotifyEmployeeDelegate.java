@@ -24,6 +24,9 @@ public class NotifyEmployeeDelegate implements JavaDelegate{
         // Empfänger-Mail-Adresse aus Prozessvariable auslesen
         String emailAddress = (String) de.getVariable("emailAddress");
         
+        // Empfänger-Vornamen aus Prozessvariable auslesen
+        String firstName = (String) de.getVariable("firstName");
+        
         // Zu veröffentlichenden Tweet aus Prozessvariable auslesen
         String tweetContent = (String) de.getVariable("tweetContent");
         
@@ -33,8 +36,8 @@ public class NotifyEmployeeDelegate implements JavaDelegate{
         // Bemerkungen zum Prüfergebnis aus Prozessvariable auslesen
         String checkResultComment = (String) de.getVariable("checkResultComment");
         
-        // Anrede zusammenbauen (VERBESSERN)
-        String mailAnrede = "Hallo xyz";
+        // Anrede zusammenbauen
+        String mailAnrede = "Hallo " + firstName;
         
         // Hauptteil des Textes zusammenbauen basierend auf Prüfergebnis
         String mailHauptteil;
@@ -42,16 +45,16 @@ public class NotifyEmployeeDelegate implements JavaDelegate{
             mailHauptteil = "Leider wurde diese Tweet-Anfrage abgelehnt mit " +
                     "folgender Begründung:\n" + checkResultComment;
         } else {
-            mailHauptteil = "Ihr Tweet wurde geposted. Herzlichen Dank für Ihren Beitrag.";
+            mailHauptteil = "Ihr Tweet wurde geposted. Herzlichen Dank für Deinen Beitrag.";
         }
         
         // Mail-Text zusammenbauen
-        String mailBody = mailAnrede + "\n\n" + "Sie haben folgenden Text zum " +
+        String mailBody = mailAnrede + "\n\n" + "Du hast folgenden Text zum " +
                 "Veröffentlichen als Tweet vorgeschlagen:\n" + tweetContent + "\n\n" +
-                mailHauptteil + "\n\n" + "Ihre Kommunikationsabteilung";
+                mailHauptteil + "\n\n" + "Deine Kommunikationsabteilung";
         
         // Mail über Mailservice versenden
-        emailService.sendSimpleMail(emailAddress, "Neuigkeiten zu Ihrer Tweet-Anfrage", mailBody);
+        emailService.sendSimpleMail(emailAddress, "Neuigkeiten zu Deiner Tweet-Anfrage", mailBody);
     }
     
 }
