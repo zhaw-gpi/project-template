@@ -173,7 +173,7 @@
         <omgdi:waypoint x="890" y="78" />
         <omgdi:waypoint x="956" y="78" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="861" y="58" width="76" height="14" />
+          <omgdc:Bounds x="806" y="113" width="76" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Lane_1bppnkr_di" bpmnElement="Lane_1bppnkr">
@@ -187,7 +187,7 @@
         <omgdi:waypoint x="890" y="480" />
         <omgdi:waypoint x="956" y="480" />
         <bpmndi:BPMNLabel>
-          <omgdc:Bounds x="898" y="579" width="53" height="14" />
+          <omgdc:Bounds x="896" y="244" width="53" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Lane_0ppjtrr_di" bpmnElement="Lane_0ppjtrr">
