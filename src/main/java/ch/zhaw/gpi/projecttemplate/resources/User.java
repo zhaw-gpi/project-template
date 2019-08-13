@@ -1,13 +1,11 @@
 package ch.zhaw.gpi.projecttemplate.resources;
 
-import java.io.Serializable;
-
 /**
  * Benutzer-Objekt, um Daten aus dem User-Rest-Service automatisch hier hinein deserialisieren zu können
  * 
  * @author scep
  */
-public class User implements Serializable{
+public class User {
     private String userName;
     private String firstName;
     private String eMail;

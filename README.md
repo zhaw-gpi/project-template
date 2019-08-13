@@ -2,7 +2,7 @@ Björn Scheppler, 13.8.2019
 
 # Camunda Projekttemplate (project-template)
 Dieses Maven-Projekt kann genutzt werden als Startpunkt für eigene auf Camunda beruhende Projekte. Enthalten sind folgende Funktionalitäten:
-1. Spring Boot 2.1.5 konfiguriert für Tomcat
+1. Spring Boot 2.1.7 konfiguriert für Tomcat
 2. Camunda Spring Boot Starter 3.3.1
 3. Camunda Process Engine, REST API und Webapps (Tasklist, Cockpit, Admin) in der Version 7.11.0 (Enterprise Edition)
 4. H2-Datenbank-Unterstützung (von Camunda Engine benötigt)
