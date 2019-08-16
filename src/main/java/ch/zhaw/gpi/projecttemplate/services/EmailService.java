@@ -30,7 +30,7 @@ public class EmailService {
     // Application.Properties-Eigenschaften in Variablen auslesen
     @Value("${mail.debug}")
     private Boolean debugMail;
-    @Value("${mail.senderaddress}")
+    @Value("${spring.mail.username}")
     private String senderAddress;
 
     /**

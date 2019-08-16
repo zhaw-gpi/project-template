@@ -1,4 +1,4 @@
-Björn Scheppler, 13.8.2019
+Björn Scheppler, 16.8.2019
 
 # Camunda Projekttemplate (project-template)
 Dieses Maven-Projekt kann genutzt werden als Startpunkt für eigene auf Camunda beruhende Projekte. Enthalten sind folgende Funktionalitäten:
@@ -7,7 +7,7 @@ Dieses Maven-Projekt kann genutzt werden als Startpunkt für eigene auf Camunda 
 3. Camunda Process Engine, REST API und Webapps (Tasklist, Cockpit, Admin) in der Version 7.11.0 (Enterprise Edition)
 4. H2-Datenbank-Unterstützung (von Camunda Engine benötigt)
 5. Spring Boot Starter Mail für den Email-Versand und zugehörige Klasse EmailService
-6. "Sinnvolle" Grundkonfiguration in application.properties für Camunda, Datenbank, Tomcat und EMail
+6. "Sinnvolle" Grundkonfiguration in application.properties für Camunda, Datenbank, Tomcat sowie in mail(-template).properties für E-Mail (Das Template dient als Vorlage für das nicht in Github hochgeladene mail.properties)
 7. Ein Beispielprozess (Verarbeitung von Tweet-Anfragen) bestehend aus:
     1. BPMN-Modell mit User Tasks, Service Tasks und Business Rules Tasks
     2. HTML-Formulare als Implementation für die User Tasks/das Startformular
@@ -30,7 +30,7 @@ Die aktuelle Version basiert vor allem auf dem Get Started-Beispiel von Camunda 
 1. Wenn man die **Enterprise Edition** von Camunda verwenden will, benötigt man die Zugangsdaten zum Nexus Repository und eine gültige Lizenz. Wie man diese "installiert", steht in den Kommentaren im pom.xml.
 2. **Erstmalig** oder bei Problemen ein `mvn clean install` (Cmd) durchführen
 3. Bei Änderungen am POM-File oder bei **(Neu)kompilierungsbedarf** genügt ein `mvn install`
-4. Damit der **Mail-Versand** funktioniert, ist der Bereich # Mail-Konfiguration in application.properties anzupassen:
+4. Damit der **Mail-Versand** funktioniert, ist basierend auf mail-template.properties ein mail.properties anzupassen:
     1. Falls nicht Gmail genutzt wird, entsprechende Angaben zum **SMTP-Server** einfügen
     2. Falls **Gmail** genutzt wird, in Netbeans unter Project ->Properties ->Actions -> Run project (und Debug project) -> Set Properties: Add **neue Umgebungsvariablen** anzulegen: Env.mailUser=BENUTZERNAME und Env.mailPass=PASSWORT. Das kann z.B. das Konto von zwi.sml@gmail.com sein oder ein Beliebiges -> Achtung: falls Zwei-Faktoren-Authentifizierung aktiviert ist, muss ein App-Passwort erstellt werden gemäss https://support.google.com/accounts/answer/185833?hl=de.
     3. Falls gar keine "echte" Mail gesendet werden soll: In application.properties **mail.debug** auf true setzen. Dann wird kein Mail versendet, sondern nur eine Ausgabe in die Kommandozeile erfolgt.
