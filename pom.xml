@@ -1,168 +1,192 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <!-- Version von Maven -->
-    <modelVersion>4.0.0</modelVersion>
+<?xml version="1.0" encoding="UTF-8"?>
 
-    <!-- Grundangaben zum Maven-Projekt, Versionsnummer (hinterste Ziffer) jedesmal 
-    um 1 erhöhen, wenn etwas ändert. Die ersten zwei Ziffern entsprechen Camunda Spring 
-    Boot-Versionsnummer -->
-    <groupId>ch.zhaw.gpi</groupId>
-    <artifactId>project-template</artifactId>
-    <name>Camunda Projekttemplate</name>
-    <version>3.3.1</version>
-
-    <!-- Konfiguration des Maven-Projekts -->
-    <properties>
-        <!-- Nicht bloss ANSI, sondern UTF-8 soll unterstützt sein -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-
-        <!-- Setzt die (Camunda) Spring Boot-Starter-Version -->
-        <camunda-bpm-spring-boot-starter.version>3.3.1</camunda-bpm-spring-boot-starter.version>
-        <spring.boot.version>2.1.7.RELEASE</spring.boot.version>
-
-        <!-- Setzt die Camunda-Version
-             Vorsicht, dass diese bezüglich der ersten zwei Ziffern passend ist 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">  
+  <!-- Version von Maven -->  
+  <modelVersion>4.0.0</modelVersion>  
+  <!-- Grundangaben zum Maven-Projekt, Versionsnummer (hinterste Ziffer) jedesmal 
+    um 1 erh�hen, wenn etwas �ndert. Die ersten zwei Ziffern entsprechen Camunda Spring 
+    Boot-Versionsnummer -->  
+  <groupId>ch.zhaw.gpi</groupId>  
+  <artifactId>project-template</artifactId>  
+  <name>Camunda Projekttemplate</name>  
+  <version>3.3.1</version>  
+  <!-- Konfiguration des Maven-Projekts -->  
+  <properties> 
+    <!-- Nicht bloss ANSI, sondern UTF-8 soll unterst�tzt sein -->  
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>  
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>  
+    <!-- Setzt die (Camunda) Spring Boot-Starter-Version -->  
+    <camunda-bpm-spring-boot-starter.version>3.3.1</camunda-bpm-spring-boot-starter.version>  
+    <spring.boot.version>2.1.7.RELEASE</spring.boot.version>  
+    <!-- Setzt die Camunda-Version
+             Vorsicht, dass diese bez�glich der ersten zwei Ziffern passend ist 
              zur empfohlenen Spring Boot Starter-Version. Die letzte Ziffer darf
-             hingegen auch höher sein, damit die aktuellsten Patches enthalten
+             hingegen auch h�her sein, damit die aktuellsten Patches enthalten
              sind.
 
              Um zu sehen, ob es neue Patches gibt, in Netbeans in der Zeile 
              <version>${camunda.version}${camunda.enable.ee}</version> weiter unten
-             alles zwischen den XML-Tags vorübergehend löschen und statt dessen
-             CTRL+Leerschlag drücken
+             alles zwischen den XML-Tags vor�bergehend l�schen und statt dessen
+             CTRL+Leerschlag dr�cken
              
              Achtung: Beim Upgrade auf neuere Versionen muss der Local Storage des Browsers
              geleert werden, weil sonst an etlichen Stellen nur die Translation-
-             Placeholders erscheinen statt der "übersetzten" Texte (sollte in 7.10 behoben sein).
-             Für Google Chrome ist das Vorgehen beschrieben hier:
+             Placeholders erscheinen statt der "�bersetzten" Texte (sollte in 7.10 behoben sein).
+             F�r Google Chrome ist das Vorgehen beschrieben hier:
              https://forum.camunda.org/t/spring-boot-webapp-login-screen-showing-placeholders/8402/3?u=scepbjoern
-             -->
-        <!--camunda.version>7.11.0</camunda.version-->
-
-        <!-- Steuert, ob die Enterprise-Version von Camunda benutzt wird ("-ee" schreiben
+             -->  
+    <!--camunda.version>7.11.0</camunda.version-->  
+    <!-- Steuert, ob die Enterprise-Version von Camunda benutzt wird ("-ee" schreiben
              oder die Community-Version (leer lassen). Weitere Bedingungen:
-             1. Eine Datei camunda-license.txt mit einem gültigen Key muss in
+             1. Eine Datei camunda-license.txt mit einem g�ltigen Key muss in
                 src/main/resources abgelegt sein (nicht committen!!!).
-             2. Es sind Credentials zum Camunda-EE-Repository erforderlich (siehe ganz unten) -->
-        <camunda.enable.ee>-ee</camunda.enable.ee>
-
-        <!-- True, falls keine Tests erforderlich sind (Beschleunigt/Ermöglicht Start auch bei fehlgeschlagenen Tests) -->
-        <skipTests>false</skipTests>
-    </properties>
-
-    <!-- Setzt Spring Boot einerseits als massgebend für die Verwaltung der Abhängigkeiten in Maven -->
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>${spring.boot.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <!-- Legt die einzelnen Abhängigkeiten des Maven-Projekts fest -->
-    <dependencies>
-        <!-- Importiert eine für die Spring Boot-Umgebung konfigurierte Camunda-
+             2. Es sind Credentials zum Camunda-EE-Repository erforderlich (siehe ganz unten) -->  
+    <camunda.enable.ee>-ee</camunda.enable.ee>  
+    <!-- True, falls keine Tests erforderlich sind (Beschleunigt/Erm�glicht Start auch bei fehlgeschlagenen Tests) -->  
+    <skipTests>false</skipTests> 
+  </properties>  
+  <!-- Setzt Spring Boot einerseits als massgebend f�r die Verwaltung der Abh�ngigkeiten in Maven -->  
+  <dependencyManagement> 
+    <dependencies> 
+      <dependency> 
+        <groupId>org.springframework.boot</groupId>  
+        <artifactId>spring-boot-dependencies</artifactId>  
+        <version>${spring.boot.version}</version>  
+        <type>pom</type>  
+        <scope>import</scope> 
+      </dependency> 
+    </dependencies> 
+  </dependencyManagement>  
+  <!-- Legt die einzelnen Abh�ngigkeiten des Maven-Projekts fest -->  
+  <dependencies> 
+    <!-- Importiert eine f�r die Spring Boot-Umgebung konfigurierte Camunda-
         Umgebung, beinhaltend: Spring-Framework, Tomcat-Server, Camunda Process
-        Engine, Camunda Webapps (Tasklist, Cockpit, Admin), Camunda Spin -->
-        <dependency>
-            <groupId>org.camunda.bpm.springboot</groupId>
-            <artifactId>camunda-bpm-spring-boot-starter-webapp${camunda.enable.ee}</artifactId>
-            <version>${camunda-bpm-spring-boot-starter.version}</version>
-        </dependency>
-
-        <!-- Importiert die REST API als weiterer Zugang für die Camunda Process Engine -->
-        <dependency>
-            <groupId>org.camunda.bpm.springboot</groupId>
-            <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>
-            <version>${camunda-bpm-spring-boot-starter.version}</version>
-        </dependency>
-
-        <!-- Importiert die Unterstützung für JUnit-Tests allgemein und Camunda-spezifisch (BPM Assert) -->
-        <dependency>
-            <groupId>org.camunda.bpm.springboot</groupId>
-            <artifactId>camunda-bpm-spring-boot-starter-test</artifactId>
-            <version>${camunda-bpm-spring-boot-starter.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Importiert die H2-Datenbank-Abhängigkeit, damit die Camunda Process
-        Engine ihre Daten in H2 in-memory ablegen kann -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!-- Import die JDBC-Unterstützung für Spring Boot, damit H2 auch 
-        file-basiert sein kann -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
-        </dependency>
-
-        <!-- Importiert die Mail-Unterstützung für Spring Boot-Projekte. Sofern
-        keine Mails gesendet werden sollen, ist diese Abhängigkeit überflüssig -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-mail</artifactId>
-        </dependency>
-
-        <!-- In OpenJDK ist die folgende für die XML-Verarbeitung erforderliche 
-            Bibliothek nicht mehr standardmässig dabei -->
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>2.2.3</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <!-- The Spring Boot Maven Plugin provides Spring Boot support in Maven, 
-            allowing you to package executable jar or war archives and run an application “in-place”.
-            https://docs.spring.io/spring-boot/docs/2.0.4.RELEASE/maven-plugin/usage.html -->
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>${spring.boot.version}</version>
-                <configuration>
-                    <layout>ZIP</layout>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <!-- Ohne die folgende Angaben versucht Maven mit JDK 5 zu kompilieren -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.1</version>
-                <configuration>
-                    <source>12</source>
-                    <target>12</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-    <!-- Damit auch die neuesten Patches der Camunda-Komponenten verfügbar sind, sollen
+        Engine, Camunda Webapps (Tasklist, Cockpit, Admin), Camunda Spin -->  
+    <dependency> 
+      <groupId>org.camunda.bpm.springboot</groupId>  
+      <artifactId>camunda-bpm-spring-boot-starter-webapp${camunda.enable.ee}</artifactId>  
+      <version>${camunda-bpm-spring-boot-starter.version}</version> 
+    </dependency>  
+    <!-- Importiert die REST API als weiterer Zugang f�r die Camunda Process Engine -->  
+    <dependency> 
+      <groupId>org.camunda.bpm.springboot</groupId>  
+      <artifactId>camunda-bpm-spring-boot-starter-rest</artifactId>  
+      <version>${camunda-bpm-spring-boot-starter.version}</version> 
+    </dependency>  
+    <!-- Importiert die Unterst�tzung f�r JUnit-Tests allgemein und Camunda-spezifisch (BPM Assert) -->  
+    <dependency> 
+      <groupId>org.camunda.bpm.springboot</groupId>  
+      <artifactId>camunda-bpm-spring-boot-starter-test</artifactId>  
+      <version>${camunda-bpm-spring-boot-starter.version}</version>  
+      <scope>test</scope> 
+    </dependency>  
+    <!-- Importiert die H2-Datenbank-Abh�ngigkeit, damit die Camunda Process
+        Engine ihre Daten in H2 in-memory ablegen kann -->  
+    <dependency> 
+      <groupId>com.h2database</groupId>  
+      <artifactId>h2</artifactId>  
+      <scope>runtime</scope> 
+    </dependency>  
+    <!-- Import die JDBC-Unterst�tzung f�r Spring Boot, damit H2 auch 
+        file-basiert sein kann -->  
+    <dependency> 
+      <groupId>org.springframework.boot</groupId>  
+      <artifactId>spring-boot-starter-jdbc</artifactId> 
+    </dependency>  
+    <!-- Importiert die Mail-Unterst�tzung f�r Spring Boot-Projekte. Sofern
+        keine Mails gesendet werden sollen, ist diese Abh�ngigkeit �berfl�ssig -->  
+    <dependency> 
+      <groupId>org.springframework.boot</groupId>  
+      <artifactId>spring-boot-starter-mail</artifactId> 
+    </dependency>  
+    <!-- In OpenJDK ist die folgende f�r die XML-Verarbeitung erforderliche 
+            Bibliothek nicht mehr standardm�ssig dabei -->  
+    <dependency> 
+      <groupId>com.sun.xml.bind</groupId>  
+      <artifactId>jaxb-impl</artifactId>  
+      <version>2.2.3</version> 
+    </dependency> 
+  </dependencies>  
+  <build> 
+    <plugins> 
+      <!-- The Spring Boot Maven Plugin provides Spring Boot support in Maven, 
+            allowing you to package executable jar or war archives and run an application �in-place�.
+            https://docs.spring.io/spring-boot/docs/2.0.4.RELEASE/maven-plugin/usage.html -->  
+      <plugin> 
+        <groupId>org.springframework.boot</groupId>  
+        <artifactId>spring-boot-maven-plugin</artifactId>  
+        <version>${spring.boot.version}</version>  
+        <configuration> 
+          <layout>ZIP</layout> 
+        </configuration>  
+        <executions> 
+          <execution> 
+            <goals> 
+              <goal>repackage</goal> 
+            </goals> 
+          </execution> 
+        </executions> 
+      </plugin>  
+      <!-- Ohne die folgende Angaben versucht Maven mit JDK 5 zu kompilieren -->  
+      <plugin> 
+        <artifactId>maven-compiler-plugin</artifactId>  
+        <version>2.3.1</version>  
+        <configuration> 
+          <source>11</source>  
+          <target>11</target> 
+        </configuration> 
+      </plugin> 
+      
+      <!-- Azure Plugin, um einfach das Projekt auf Azure zu deployen. Details siehe 
+        https://docs.microsoft.com/en-us/java/azure/spring-framework/deploy-spring-boot-java-app-with-maven-plugin?view=azure-java-stable 
+        und https://code.visualstudio.com/docs/java/java-webapp -->
+      <plugin> 
+        <groupId>com.microsoft.azure</groupId>  
+        <artifactId>azure-webapp-maven-plugin</artifactId>  
+        <version>1.7.0</version>  
+        <configuration>
+          <schemaVersion>V2</schemaVersion>
+          <resourceGroup>project-template-1566225157210-rg</resourceGroup>
+          <appName>project-template-1566225157210</appName>
+          <pricingTier>P1v2</pricingTier>
+          <region>westeurope</region>
+          <runtime>
+            <os>linux</os>
+            <javaVersion>java11</javaVersion>
+            <webContainer>java11</webContainer>
+          </runtime>
+          <deployment>
+            <resources>
+              <resource>
+                <directory>${project.basedir}/target</directory>
+                <includes>
+                  <include>*.jar</include>
+                </includes>
+              </resource>
+            </resources>
+          </deployment>
+          <!-- Begin of App Settings  -->
+          <appSettings>
+            <property>
+                <name>JAVA_OPTS</name>
+                <value>-Dserver.port=80</value>
+            </property>
+        </appSettings>
+        <!-- End of App Settings  -->
+        </configuration>
+      </plugin> 
+    </plugins> 
+  </build>  
+  <!-- Damit auch die neuesten Patches der Camunda-Komponenten verf�gbar sind, sollen
          die Komponenten nicht vom allgemeinen Maven-Repository https://mvnrepository.com
          geladen werden, sondern von den bei Camunda gehosteten Nexus-Repositories.
-         Diese gibt es einerseits für die Community Edition (camunda-bpm-nexus) und
-         für die Enterprise Edition (camunda-bpm-ee). Die Community Repository funktioniert
-         out-of-the-box, da öffentlich zugänglich.
+         Diese gibt es einerseits f�r die Community Edition (camunda-bpm-nexus) und
+         f�r die Enterprise Edition (camunda-bpm-ee). Die Community Repository funktioniert
+         out-of-the-box, da �ffentlich zug�nglich.
 
-         Die Enterprise Repository benötigt
+         Die Enterprise Repository ben�tigt
          hingegen Zugangsdaten, welche in einer Datei settings.xml im .m2-Verzeichnis
-         eingefügt werden. Das .m2-Verzeichnis befindet sich auf einem Windows 10-
+         eingef�gt werden. Das .m2-Verzeichnis befindet sich auf einem Windows 10-
          Rechner in C:\Users\BENUTZERNAME\.m2. Der Inhalt von settings.xml sollte sein:
          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
             <servers>
@@ -173,17 +197,17 @@
              </server>
             </servers>
            </settings> 
-    -->
-    <repositories>
-        <repository>
-            <id>camunda-bpm-nexus</id>
-            <name>camunda-bpm-nexus</name>
-            <url>https://app.camunda.com/nexus/content/groups/public</url>
-        </repository>
-        <repository>
-            <id>camunda-bpm-ee</id>
-            <name>camunda-bpm-ee</name>
-            <url>https://app.camunda.com/nexus/content/repositories/camunda-bpm-ee</url>
-        </repository>
-    </repositories>
+    -->  
+  <repositories> 
+    <repository> 
+      <id>camunda-bpm-nexus</id>  
+      <name>camunda-bpm-nexus</name>  
+      <url>https://app.camunda.com/nexus/content/groups/public</url> 
+    </repository>  
+    <repository> 
+      <id>camunda-bpm-ee</id>  
+      <name>camunda-bpm-ee</name>  
+      <url>https://app.camunda.com/nexus/content/repositories/camunda-bpm-ee</url> 
+    </repository> 
+  </repositories> 
 </project>
