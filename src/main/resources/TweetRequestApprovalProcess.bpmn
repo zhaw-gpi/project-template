@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" targetNamespace="http://www.signavio.com/bpmn20" exporter="Camunda Modeler" exporterVersion="3.1.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
+<definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" targetNamespace="http://www.signavio.com/bpmn20" exporter="Camunda Modeler" exporterVersion="3.1.0" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd">
   <collaboration id="Collaboration_05jmpr5">
     <participant id="Participant_1mdci1z" name="Prozessportal" processRef="TweetRequestApproval" />
     <participant id="Participant_0tlckqy" name="Mitarbeiter" processRef="Process_0f7bkq3" />
@@ -27,6 +27,7 @@
         <flowNodeRef>ExclusiveGateway_1j35paq</flowNodeRef>
         <flowNodeRef>TweetAnfrageEingereicht</flowNodeRef>
         <flowNodeRef>TweetAnfrageUeberarbeiten</flowNodeRef>
+        <flowNodeRef>DreiTageAbgelaufenMitarbeiter</flowNodeRef>
         <childLaneSet id="LaneSet_072546v" />
       </lane>
       <lane id="Lane_0duxeh3" name="Automatisch">
@@ -43,6 +44,7 @@
       </lane>
       <lane id="Lane_1d9hebs" name="Komm.abt.">
         <flowNodeRef>TweetAnfrageUeberpruefen</flowNodeRef>
+        <flowNodeRef>DreiTageAbgelaufenKommunikation</flowNodeRef>
       </lane>
     </laneSet>
     <sequenceFlow id="SequenceFlow_0u4gnyu" sourceRef="BenutzerInformationenAuslesen" targetRef="AufVerboteneWoerterPruefen" />
@@ -124,9 +126,11 @@
     <exclusiveGateway id="ExclusiveGateway_1xsns7l">
       <incoming>SequenceFlow_0s6lwhf</incoming>
       <incoming>SequenceFlow_17yy4ko</incoming>
+      <incoming>SequenceFlow_0321f1h</incoming>
+      <incoming>SequenceFlow_0m843ie</incoming>
       <outgoing>SequenceFlow_0yart44</outgoing>
     </exclusiveGateway>
-    <sendTask id="MitarbeiterBenachrichtigen" name="Mitarbeiter benachrichtigen" camunda:asyncBefore="true" camunda:delegateExpression="#{notifyEmployeeAdapter}">
+    <sendTask id="MitarbeiterBenachrichtigen" name="Status mitteilen" camunda:asyncBefore="true" camunda:delegateExpression="#{notifyEmployeeAdapter}">
       <incoming>SequenceFlow_0yart44</incoming>
       <outgoing>SequenceFlow_0zvcww5</outgoing>
     </sendTask>
@@ -137,6 +141,30 @@
       <incoming>SequenceFlow_1xa7w30</incoming>
       <outgoing>SequenceFlow_0frtojm</outgoing>
     </userTask>
+    <sequenceFlow id="SequenceFlow_0321f1h" sourceRef="DreiTageAbgelaufenKommunikation" targetRef="ExclusiveGateway_1xsns7l" />
+    <boundaryEvent id="DreiTageAbgelaufenKommunikation" name="3 Tage abgelaufen" attachedToRef="TweetAnfrageUeberpruefen">
+      <extensionElements>
+        <camunda:executionListener event="end">
+          <camunda:script scriptFormat="JavaScript">execution.setVariable("mailMainPart","Dieser konnte nicht veröffentlicht werden, weil er nicht durch die Kommunikationsabteilung innert 3 Tagen geprüft wurde.");</camunda:script>
+        </camunda:executionListener>
+      </extensionElements>
+      <outgoing>SequenceFlow_0321f1h</outgoing>
+      <timerEventDefinition>
+        <timeDuration xsi:type="tFormalExpression">P3D</timeDuration>
+      </timerEventDefinition>
+    </boundaryEvent>
+    <boundaryEvent id="DreiTageAbgelaufenMitarbeiter" name="3 Tage abgelaufen" attachedToRef="TweetAnfrageUeberarbeiten">
+      <extensionElements>
+        <camunda:executionListener event="end">
+          <camunda:script scriptFormat="JavaScript">execution.setVariable("mailMainPart","Dieser konnte nicht veröffentlicht werden, weil Du nicht innert 3 Tagen diesen überarbeitet hast.");</camunda:script>
+        </camunda:executionListener>
+      </extensionElements>
+      <outgoing>SequenceFlow_0m843ie</outgoing>
+      <timerEventDefinition>
+        <timeDuration xsi:type="tFormalExpression">P3D</timeDuration>
+      </timerEventDefinition>
+    </boundaryEvent>
+    <sequenceFlow id="SequenceFlow_0m843ie" sourceRef="DreiTageAbgelaufenMitarbeiter" targetRef="ExclusiveGateway_1xsns7l" />
   </process>
   <process id="Process_0f7bkq3" isExecutable="false">
     <laneSet id="LaneSet_08hdegu">
@@ -382,7 +410,7 @@
       <bpmndi:BPMNShape id="ServiceTask_172ekw3_di" bpmnElement="BenutzerInformationenAuslesen">
         <omgdc:Bounds x="391" y="602" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Participant_0tlckqy_di" bpmnElement="Participant_0tlckqy" isHorizontal="true">
+      <bpmndi:BPMNShape id="Participant_0tlckqy_di" bpmnElement="Participant_0tlckqy" isHorizontal="true" bioc:stroke="rgb(30, 136, 229)" bioc:fill="rgb(187, 222, 251)">
         <omgdc:Bounds x="156" y="81" width="689" height="284" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_1oip4ou_di" bpmnElement="Lane_1oip4ou" isHorizontal="true">
@@ -460,7 +488,7 @@
         <omgdi:waypoint x="519" y="94" />
         <omgdi:waypoint x="519" y="120" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Participant_0fcxs29_di" bpmnElement="Participant_0fcxs29" isHorizontal="true">
+      <bpmndi:BPMNShape id="Participant_0fcxs29_di" bpmnElement="Participant_0fcxs29" isHorizontal="true" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
         <omgdc:Bounds x="476" y="954" width="624" height="307" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_1nrffg5_di" bpmnElement="Lane_1nrffg5" isHorizontal="true">
@@ -536,13 +564,13 @@
         <omgdi:waypoint x="687" y="979" />
         <omgdi:waypoint x="687" y="1013" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Lane_1bppnkr_di" bpmnElement="Lane_1bppnkr" isHorizontal="true">
+      <bpmndi:BPMNShape id="Lane_1bppnkr_di" bpmnElement="Lane_1bppnkr" isHorizontal="true" bioc:stroke="rgb(30, 136, 229)" bioc:fill="rgb(187, 222, 251)">
         <omgdc:Bounds x="186" y="416" width="1308" height="161" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_0duxeh3_di" bpmnElement="Lane_0duxeh3" isHorizontal="true">
         <omgdc:Bounds x="186" y="577" width="1308" height="207" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="Lane_1d9hebs_di" bpmnElement="Lane_1d9hebs" isHorizontal="true">
+      <bpmndi:BPMNShape id="Lane_1d9hebs_di" bpmnElement="Lane_1d9hebs" isHorizontal="true" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
         <omgdc:Bounds x="186" y="784" width="1308" height="117" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="MessageFlow_03c7u2j_di" bpmnElement="MessageFlow_03c7u2j">
@@ -580,8 +608,8 @@
         <omgdi:waypoint x="575" y="1167" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="MessageFlow_0dgnr36_di" bpmnElement="MessageFlow_0dgnr36">
-        <omgdi:waypoint x="835" y="877" />
-        <omgdi:waypoint x="835" y="923" />
+        <omgdi:waypoint x="824" y="877" />
+        <omgdi:waypoint x="824" y="923" />
         <omgdi:waypoint x="1041" y="923" />
         <omgdi:waypoint x="1041" y="1020" />
       </bpmndi:BPMNEdge>
@@ -625,6 +653,29 @@
         <omgdi:waypoint x="279" y="919" />
         <omgdi:waypoint x="424" y="919" />
         <omgdi:waypoint x="424" y="682" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BoundaryEvent_0x4a7dl_di" bpmnElement="DreiTageAbgelaufenKommunikation">
+        <omgdc:Bounds x="843" y="859" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="885" y="844" width="55" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0321f1h_di" bpmnElement="SequenceFlow_0321f1h">
+        <omgdi:waypoint x="879" y="877" />
+        <omgdi:waypoint x="1247" y="877" />
+        <omgdi:waypoint x="1247" y="673" />
+        <omgdi:waypoint x="1230" y="655" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="BoundaryEvent_015gcij_di" bpmnElement="DreiTageAbgelaufenMitarbeiter">
+        <omgdc:Bounds x="1156" y="517" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <omgdc:Bounds x="1201" y="504" width="55" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0m843ie_di" bpmnElement="SequenceFlow_0m843ie">
+        <omgdi:waypoint x="1192" y="535" />
+        <omgdi:waypoint x="1218" y="535" />
+        <omgdi:waypoint x="1218" y="617" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

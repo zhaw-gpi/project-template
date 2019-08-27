@@ -1,4 +1,4 @@
-Björn Scheppler, 16.8.2019
+Björn Scheppler, 27.8.2019
 
 # Camunda Projekttemplate (project-template)
 Dieses Maven-Projekt kann genutzt werden als Startpunkt für eigene auf Camunda beruhende Projekte. Enthalten sind folgende Funktionalitäten:
@@ -9,7 +9,7 @@ Dieses Maven-Projekt kann genutzt werden als Startpunkt für eigene auf Camunda 
 5. Spring Boot Starter Mail für den Email-Versand und zugehörige Klasse EmailService
 6. "Sinnvolle" Grundkonfiguration in application.properties für Camunda, Datenbank, Tomcat sowie in mail(-template).properties für E-Mail (Das Template dient als Vorlage für das nicht in Github hochgeladene mail.properties)
 7. Ein Beispielprozess (Verarbeitung von Tweet-Anfragen) bestehend aus:
-    1. BPMN-Modell mit User Tasks, Service Tasks und Business Rules Tasks
+    1. BPMN-Modell mit User Tasks, Service Tasks, Business Rules Tasks und angehefteten Zeitereignissen
     2. HTML-Formulare als Implementation für die User Tasks/das Startformular
     3. Eine JavaDelegate-Klasse als Implementation für den Service Task "Mitarbeiter benachrichtigen" (per Mail) (NotifyEmployeeDelegate)
     4. Eine JavaDelegate-Klasse als Implementation für den Service Task "Benutzer-Informationen auslesen" (GetUserInformationDelegate), welche wiederum eine Service-Klasse aufruft (UserService), welche wiederum einen REST-Service aufruft (siehe separates Projekt: https://github.com/zhaw-gpi/rest-service-template)

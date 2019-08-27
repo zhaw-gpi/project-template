@@ -35,17 +35,22 @@ public class NotifyEmployeeDelegate implements JavaDelegate{
         
         // Bemerkungen zum Prüfergebnis aus Prozessvariable auslesen
         String checkResultComment = (String) de.getVariable("checkResultComment");
+
+        // Falls Zeitüberschreitung eingetreten, dann ist Prozessvariable mailMainPart vorhanden 
+        Object mailMainPart = de.getVariable("mailMainPart");
         
         // Anrede zusammenbauen
         String mailAnrede = "Hallo " + firstName;
         
-        // Hauptteil des Textes zusammenbauen basierend auf Prüfergebnis
+        // Hauptteil des Textes zusammenbauen basierend auf Vorhandensein von mailMainPart oder Prüfergebnis
         String mailHauptteil;
-        if(checkResult.equals("rejected")){
+        if(mailMainPart instanceof String){
+            mailHauptteil = (String) mailMainPart;
+        } else if(checkResult.equals("rejected")){
             mailHauptteil = "Leider wurde diese Tweet-Anfrage abgelehnt mit " +
                     "folgender Begründung:\n" + checkResultComment;
         } else {
-            mailHauptteil = "Ihr Tweet wurde geposted. Herzlichen Dank für Deinen Beitrag.";
+            mailHauptteil = "Dein Tweet wurde geposted. Herzlichen Dank für Deinen Beitrag.";
         }
         
         // Mail-Text zusammenbauen
