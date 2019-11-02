@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="Definitions_13m4okk" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_13m4okk" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="3.1.0">
   <decision id="forbiddenWordsDecision" name="Verbotene Wörter">
     <extensionElements>
       <biodi:bounds x="534" y="250" width="180" height="80" />
     </extensionElements>
     <decisionTable id="decisionTable_1" hitPolicy="FIRST">
-      <input id="input_1" label="Verbotene Wörter">
+      <input id="input_1" label="Verbotene Wörter" camunda:inputVariable="tc">
         <inputExpression id="inputExpression_1" typeRef="string">
           <text>tweetContent</text>
         </inputExpression>
@@ -15,7 +15,7 @@
       <rule id="DecisionRule_1wynfba">
         <description>Ablehnen</description>
         <inputEntry id="UnaryTests_0fv2shk" expressionLanguage="juel">
-          <text>tweetContent.contains("Digitalisierung")</text>
+          <text>tc.contains("Digitalisierung")</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0styuj4">
           <text>"rejected"</text>
@@ -27,7 +27,7 @@
       <rule id="DecisionRule_0wqb8ja">
         <description>Ablehnen</description>
         <inputEntry id="UnaryTests_0l01hpd" expressionLanguage="juel">
-          <text>tweetContent.contains("Buzzword")</text>
+          <text>tc.contains("Buzzword")</text>
         </inputEntry>
         <outputEntry id="LiteralExpression_0aw1it7">
           <text>"rejected"</text>
@@ -45,6 +45,17 @@
           <text>"manualCheckRequired"</text>
         </outputEntry>
         <outputEntry id="LiteralExpression_0fhgh7c">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0rkhnm8">
+        <inputEntry id="UnaryTests_0u77r0x">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jz1xrl">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0m2pfrr">
           <text></text>
         </outputEntry>
       </rule>
